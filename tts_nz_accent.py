@@ -30,7 +30,7 @@ text = "Today is the day. I want to move like a titan at dawn, sweat like a god 
 
 # Use your New Zealand accent audio sample
 # The model will clone the accent and voice characteristics from this file
-AUDIO_PROMPT_PATH = "nz_accent_sample.wav"
+AUDIO_PROMPT_PATH = "sample.wav"
 
 # Generate with New Zealand accent
 # Adjust exaggeration and cfg_weight for different effects:
