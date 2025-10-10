@@ -8,3 +8,15 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Generated audio files
+*.wav
+
+# Model cache
+.cache/
+models/
+
+# OS files
+.DS_Store
+.AppleDouble
+.LSOverride
