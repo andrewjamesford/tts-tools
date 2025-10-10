@@ -56,37 +56,80 @@ Run the included example script:
 uv run tts.py
 ```
 
-This will generate speech from the sample text and save it to `test-2.wav`.
+This will generate speech from the sample text and save it to `test.wav`.
 
-### Voice Cloning
+### Voice Cloning and Accents
 
-To clone a voice, provide an audio sample:
+**Important**: The accent (American, British, New Zealand, etc.) comes from your **audio prompt sample**, not the model itself. ChatterboxTTS clones the voice characteristics, including accent, speaking style, and tone from the audio you provide.
 
-1. Place your audio sample (WAV format) in the project directory
-2. Update the `AUDIO_PROMPT_PATH` in `tts.py`:
+#### Changing Accents
+
+To get a specific accent (e.g., New Zealand or English):
+
+1. **Obtain an audio sample** with the desired accent:
+   - Record yourself speaking (5-30 seconds)
+   - Use royalty-free voice samples
+   - Record a friend with the desired accent
+   - Find creative commons licensed audio clips
+
+2. **Audio requirements**:
+   - Format: WAV (preferred) or MP3
+   - Duration: 5-30 seconds (sweet spot: 10-15 seconds)
+   - Quality: Clear speech, minimal background noise
+   - Content: Natural speaking, single speaker
+   - Sample rate: 16kHz or higher recommended
+
+3. **Place your audio file** in the project directory
+
+4. **Update the script**:
 
 ```python
-AUDIO_PROMPT_PATH = "your_audio_sample.wav"
+# For New Zealand accent
+AUDIO_PROMPT_PATH = "nz_accent_sample.wav"
+
+# For British English accent
+AUDIO_PROMPT_PATH = "british_accent_sample.wav"
 ```
 
-3. Run the script:
+5. **Run the script**:
 
 ```bash
+# Use the New Zealand accent example
+uv run tts_nz_accent.py
+
+# Or modify and run the main script
 uv run tts.py
 ```
 
+#### Example Scripts
+
+The project includes example scripts for different use cases:
+
+- `tts.py` - Main script with voice cloning
+- `tts_nz_accent.py` - Example configured for New Zealand accent
+- `tts_no_voice_clone.py` - Example using default voice (American accent)
+
 ### Customizing Generation
 
-You can adjust various parameters in `tts.py`:
+You can adjust various parameters to control the output:
 
 ```python
 wav = model.generate(
     text,
     audio_prompt_path=AUDIO_PROMPT_PATH,
     exaggeration=0.5,  # Emotion exaggeration (0.0 to 1.0)
-    cfg_weight=0.5     # Classifier-free guidance weight
+                       # Lower (0.0-0.3): More neutral, natural speech
+                       # Higher (0.6-1.0): More expressive, emotional
+    cfg_weight=0.5     # Classifier-free guidance weight (0.0 to 1.0)
+                       # Lower (0.0-0.4): More creative, varied
+                       # Higher (0.6-1.0): More faithful to audio prompt
 )
 ```
+
+**Tips for better accent reproduction:**
+- Use `cfg_weight=0.7` or higher to stay closer to your accent sample
+- Use `exaggeration=0.3` or lower for more natural, neutral speech
+- Ensure your audio sample clearly demonstrates the desired accent
 
 ## Project Structure
 
