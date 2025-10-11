@@ -25,12 +25,21 @@ if perth.PerthImplicitWatermarker is None:
 
 model = ChatterboxTTS.from_pretrained(device=device)
 
-# Generate without voice cloning (uses model's default voice)
+# New Zealand accent example
 text = "Today is the day. I want to move like a titan at dawn, sweat like a god forging lightning. No more excuses. From now on, my mornings will be temples of discipline. I am going to work out like the gods… every damn day."
 
-# No audio_prompt_path means use the default voice
-# Note: The default voice will likely have an American accent
-wav = model.generate(text, exaggeration=0.5, cfg_weight=0.5)
+# The model will clone the accent and voice characteristics from this file
+AUDIO_PROMPT_PATH = "sample03.mp3"
 
-ta.save("output_default_voice.wav", wav, model.sr)
-print(f"Generated audio with default voice saved to: output_default_voice.wav")
+# Adjust exaggeration and cfg_weight for different effects:
+# - exaggeration: 0.0 (neutral) to 1.0 (more expressive)
+# - cfg_weight: 0.0 (more creative) to 1.0 (more faithful to prompt)
+wav = model.generate(
+    text,
+    audio_prompt_path=AUDIO_PROMPT_PATH,
+    exaggeration=0.3,  # Lower for more natural speech
+    cfg_weight=0.9,  # Higher to stay closer to the voice sample
+)
+
+ta.save("output_nz_accent.wav", wav, model.sr)
+print(f"Generated audio with New Zealand accent saved to: output_nz_accent.wav")
