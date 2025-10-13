@@ -197,7 +197,21 @@ def convert_numbers_and_decimals(text: str) -> str:
 
 def normalize_text(text: str) -> str:
     """Apply all text normalizations for better TTS."""
+    # First handle number+acronym combinations (e.g., 512GB -> 512 gigabytes)
+    storage_units = [
+        (r"(\d+)\s*GB\b", r"\1 gigabyte"),
+        (r"(\d+)\s*TB\b", r"\1 terabyte"),
+        (r"(\d+)\s*MB\b", r"\1 megabyte"),
+        (r"(\d+)\s*KB\b", r"\1 kilobyte"),
+        (r"(\d+)\s*PB\b", r"\1 petabyte"),
+    ]
+    for pattern, replacement in storage_units:
+        text = re.sub(pattern, replacement, text)
+
+    # Then convert other acronyms
     text = convert_acronyms(text)
+
+    # Finally convert numbers to words
     text = convert_numbers_and_decimals(text)
     return text
 
@@ -460,7 +474,7 @@ def process_text_file(input_path: Path) -> None:
 
     # Create output filename base
     timestamp = datetime.now().strftime("%Y%m%d-%H%M")
-    output_base = OUTPUT_FOLDER / input_path.stem
+    output_base = Path(OUTPUT_FOLDER) / input_path.stem
 
     # Generate audio for all chunks
     print(f"\nGenerating audio (using {MAX_PARALLEL_CHUNKS} parallel workers)...")
