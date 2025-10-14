@@ -9,6 +9,10 @@ from datetime import datetime
 from typing import List, Tuple
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import threading
+import warnings
+
+# Suppress deprecation warnings from diffusers library
+warnings.filterwarnings("ignore", category=FutureWarning, module="diffusers")
 
 # ============================================================================
 # CONFIGURATION
@@ -21,12 +25,12 @@ MIN_SENTENCE_LENGTH = 30  # Merge sentences shorter than this when batching is o
 LONG_SENTENCE_THRESHOLD = 500  # Split sentences longer than this
 
 # Parallel processing
-MAX_PARALLEL_CHUNKS = 4  # Number of chunks to process simultaneously
+MAX_PARALLEL_CHUNKS = 2  # Number of chunks to process simultaneously
 
 # Audio generation settings
 AUDIO_PROMPT_PATH = "sample03.mp3"  # Voice to clone
-EXAGGERATION = 0.3  # 0.0 (neutral) to 1.0 (expressive)
-CFG_WEIGHT = 0.9  # 0.0 (creative) to 1.0 (faithful to prompt)
+EXAGGERATION = 0.4  # 0.0 (neutral) to 1.0 (expressive)
+CFG_WEIGHT = 0.8  # 0.0 (creative) to 1.0 (faithful to prompt)
 
 # Input/Output directories
 INPUT_FOLDER = "input_texts"  # Folder containing .txt files
