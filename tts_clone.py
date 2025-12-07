@@ -26,7 +26,7 @@ if perth.PerthImplicitWatermarker is None:
 model = ChatterboxTTS.from_pretrained(device=device)
 
 # New Zealand accent example
-text = "Today is the day. I want to move like a titan at dawn, sweat like a god forging lightning. No more excuses. From now on, my mornings will be temples of discipline. I am going to work out like the gods… every damn day."
+text = "Today is the day. I want to move like a titan at dawn, sweat like a god forging lightning. No more excuses. From now on, my mornings will be temples of discipline. I am going to work out like the gods… every damn day. Here is the app I made that saves you having to buy a new smart scale.                  Scan the reading of the scale, it returns back the reading and you can save it directly to Apple Health."
 
 # The model will clone the accent and voice characteristics from this file
 AUDIO_PROMPT_PATH = "sample03.mp3"
